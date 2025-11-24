@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "usuario": "admin",
+    "password": "1423",
+    "rol": "ADMIN"
+  },
+  {
+    "id": 2,
+    "usuario": "endico",
+    "password": "9999",
+    "rol": "DIRECCION"
+  },
+  {
+    "id": 3,
+    "usuario": "lartec",
+    "password": "8868",
+    "rol": "RECEPCION"
+  },
+  {
+    "id": 4,
+    "usuario": "nalvarez",
+    "password": "1507",
+    "rol": "TECNICO"
+  },
+  {
+    "id": 5,
+    "usuario": "jcvadillo",
+    "password": "6666",
+    "rol": "TECNICO"
+  },
+  {
+    "id": 6,
+    "usuario": "asanchez",
+    "password": "1709",
+    "rol": "COMERCIAL"
+  },
+  {
+    "id": 7,
+    "usuario": "gcalvo",
+    "password": "2803",
+    "rol": "COMERCIAL"
+  },
+  {
+    "id": 8,
+    "usuario": "lgarcia",
+    "password": "1990",
+    "rol": "COMERCIAL"
+  }
+]

@@ -14,10 +14,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas API
 const medicionesRouter = require('./src/routes/mediciones');
+const usuariosRouter = require('./src/routes/usuarios');
+
 app.use('/api/mediciones', medicionesRouter);
+app.use('/api/usuarios', usuariosRouter);
 
 // Arrancar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
