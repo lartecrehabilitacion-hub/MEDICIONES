@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -7,43 +7,144 @@
 </head>
 <body>
 
-    <!-- HEADER SUPERIOR -->
-    <header class="header">
-        <img src="Imagenes/logo-lartec.png" alt="Logo Lartec" class="logo">
-        <h1>Control de Mediciones</h1>
-    </header>
+    <!-- LOGIN -->
+    <section id="login-container">
+        <h2>Login Lartec</h2>
 
-    <!-- BLOQUE FORMULARIO -->
-    <section class="panel">
-        <h2>Agregar Medición</h2>
+        <label for="user">Usuario</label>
+        <input type="text" id="user" autocomplete="off">
 
-        <form id="medicion-form" class="form-grid">
-            <input type="text" id="cliente" placeholder="Cliente" required>
-            <input type="text" id="direccion" placeholder="Dirección" required>
-            <input type="number" id="valor" placeholder="Valor" required>
+        <label for="pass">Contraseña / Código</label>
+        <input type="password" id="pass">
 
-            <button type="submit" class="btn-azul">Guardar</button>
-        </form>
+        <button id="btn-login" class="btn-azul">Entrar</button>
+
+        <p id="login-error" class="error"></p>
     </section>
 
-    <!-- BLOQUE TABLA -->
-    <section class="panel">
-        <h2>Lista de Mediciones</h2>
+    <!-- ESCRITORIO COMERCIAL (TU PANTALLA DE MEDICIONES) -->
+    <div id="desk-comercial" style="display:none;">
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Dirección</th>
-                    <th>Valor</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-mediciones"></tbody>
-        </table>
-    </section>
+        <!-- HEADER SUPERIOR -->
+        <header class="header">
+            <img src="Imagenes/logo-lartec.png" alt="Logo Lartec" class="logo">
+            <h1 id="titulo-escritorio">Control de Mediciones</h1>
+        </header>
 
-    <script src="app.js"></script>
+        <!-- BLOQUE FORMULARIO -->
+        <section class="panel">
+            <h2>Agregar Medición</h2>
+
+            <form id="medicion-form" class="form-grid">
+                <input type="text" id="cliente" placeholder="Cliente" required>
+                <input type="text" id="direccion" placeholder="Dirección" required>
+                <input type="number" id="valor" placeholder="Valor" required>
+
+                <button type="submit" class="btn-azul">Guardar</button>
+            </form>
+        </section>
+
+        <!-- BLOQUE TABLA -->
+        <section class="panel">
+            <h2>Lista de Mediciones</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Dirección</th>
+                        <th>Valor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-mediciones"></tbody>
+            </table>
+        </section>
+
+    </div>
+
+    <!-- TODO EL JS AQUÍ MISMO -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // ----- USUARIOS COMERCIALES -----
+        const usuarios = [
+            { nombre: 'Ana',  usuario: 'asanchez', clave: '1709', rol: 'Comercial' },
+            { nombre: 'Gabi', usuario: 'gcalvo',   clave: '2803', rol: 'Comercial' },
+            { nombre: 'Luis', usuario: 'lgarcia',  clave: '1990', rol: 'Comercial' }
+        ];
+
+        const loginContainer = document.getElementById('login-container');
+        const deskComercial  = document.getElementById('desk-comercial');
+        const loginBtn       = document.getElementById('btn-login');
+        const loginError     = document.getElementById('login-error');
+        const tituloDesk     = document.getElementById('titulo-escritorio');
+
+        // --- LOGIN ---
+        loginBtn.addEventListener('click', () => {
+            const user = document.getElementById('user').value.trim();
+            const pass = document.getElementById('pass').value.trim();
+
+            const encontrado = usuarios.find(u => u.usuario === user && u.clave === pass);
+
+            if (!encontrado) {
+                loginError.textContent = 'Usuario o contraseña incorrectos';
+                return;
+            }
+
+            if (encontrado.rol === 'Comercial') {
+                loginContainer.style.display = 'none';
+                deskComercial.style.display  = 'block';
+                tituloDesk.textContent = 'ESCRITORIO ' + encontrado.nombre.toUpperCase();
+            } else {
+                loginError.textContent = 'Este rol todavía no tiene escritorio configurado.';
+            }
+        });
+
+        // Permitir Enter para loguearse
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && deskComercial.style.display === 'none') {
+                loginBtn.click();
+            }
+        });
+
+        // ----- LÓGICA DE MEDICIONES -----
+        const form = document.getElementById('medicion-form');
+        const tablaBody = document.getElementById('tabla-mediciones');
+        let contadorId = 1;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const cliente   = document.getElementById('cliente').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const valor     = document.getElementById('valor').value;
+
+            if (!cliente || !direccion || !valor) return;
+
+            const fila = document.createElement('tr');
+
+            fila.innerHTML = `
+                <td>${contadorId++}</td>
+                <td>${cliente}</td>
+                <td>${direccion}</td>
+                <td>${valor}</td>
+                <td>
+                    <button class="btn-azul btn-eliminar">Eliminar</button>
+                </td>
+            `;
+
+            tablaBody.appendChild(fila);
+            form.reset();
+        });
+
+        // Delegación para botón eliminar
+        tablaBody.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn-eliminar')) {
+                e.target.closest('tr').remove();
+            }
+        });
+    });
+    </script>
 </body>
 </html>

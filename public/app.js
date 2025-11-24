@@ -57,3 +57,84 @@ async function eliminarMedicion(id) {
 
 // Primera carga
 cargarMediciones();
+// app.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ----- USUARIOS COMERCIALES -----
+    const usuarios = [
+        { nombre: 'Ana',  usuario: 'asanchez', clave: '1709', rol: 'Comercial' },
+        { nombre: 'Gabi', usuario: 'gcalvo',   clave: '2803', rol: 'Comercial' },
+        { nombre: 'Luis', usuario: 'lgarcia',  clave: '1990', rol: 'Comercial' }
+    ];
+
+    const loginContainer = document.getElementById('login-container');
+    const deskComercial  = document.getElementById('desk-comercial');
+    const loginBtn       = document.getElementById('btn-login');
+    const loginError     = document.getElementById('login-error');
+    const tituloDesk     = document.getElementById('titulo-escritorio');
+
+    loginBtn.addEventListener('click', () => {
+        const user = document.getElementById('user').value.trim();
+        const pass = document.getElementById('pass').value.trim();
+
+        const encontrado = usuarios.find(u => u.usuario === user && u.clave === pass);
+
+        if (!encontrado) {
+            loginError.textContent = 'Usuario o contraseña incorrectos';
+            return;
+        }
+
+        if (encontrado.rol === 'Comercial') {
+            loginContainer.style.display = 'none';
+            deskComercial.style.display  = 'block';
+            tituloDesk.textContent = 'ESCRITORIO ' + encontrado.nombre.toUpperCase();
+        } else {
+            loginError.textContent = 'Este rol todavía no tiene escritorio configurado.';
+        }
+    });
+
+    // Permitir pulsar Enter para loguearse
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && deskComercial.style.display === 'none') {
+            loginBtn.click();
+        }
+    });
+
+    // ----- LÓGICA DE MEDICIONES -----
+    const form = document.getElementById('medicion-form');
+    const tablaBody = document.getElementById('tabla-mediciones');
+
+    let contadorId = 1;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const cliente   = document.getElementById('cliente').value.trim();
+        const direccion = document.getElementById('direccion').value.trim();
+        const valor     = document.getElementById('valor').value;
+
+        if (!cliente || !direccion || !valor) return;
+
+        const fila = document.createElement('tr');
+
+        fila.innerHTML = `
+            <td>${contadorId++}</td>
+            <td>${cliente}</td>
+            <td>${direccion}</td>
+            <td>${valor}</td>
+            <td>
+                <button class="btn-azul btn-eliminar">Eliminar</button>
+            </td>
+        `;
+
+        tablaBody.appendChild(fila);
+        form.reset();
+    });
+
+    // Delegación para botón eliminar
+    tablaBody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-eliminar')) {
+            e.target.closest('tr').remove();
+        }
+    });
+});

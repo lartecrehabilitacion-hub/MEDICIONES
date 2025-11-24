@@ -1,0 +1,107 @@
+/* BARRA SUPERIOR */
+.top-bar {
+    font-size: 12px;
+    background: #f1f1f1;
+    padding: 2px 8px;
+    border-bottom: 1px solid #bdbdbd;
+}
+
+/* CABECERA */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #bbb;
+}
+
+.btn-nueva {
+    background: #c70000;
+    border: 1px solid #790000;
+    color: white;
+    font-weight: bold;
+    padding: 12px 20px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.logo {
+    height: 80px;
+}
+
+/* TABS */
+.tabs {
+    border-bottom: 1px solid #bbb;
+}
+
+.tab {
+    padding: 8px 16px;
+    border: 1px solid #bbb;
+    border-bottom: none;
+    background: #e8e8e8;
+    cursor: pointer;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.tab.active {
+    background: white;
+    font-weight: bold;
+}
+
+/* TÍTULOS */
+.title {
+    font-size: 14px;
+    margin: 10px;
+    font-weight: bold;
+}
+
+/* FILTROS */
+.filters {
+    border: 1px solid #bbb;
+    margin: 0 10px 20px;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.filters-title {
+    font-weight: bold;
+}
+
+.filters-row {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.filter-box label {
+    font-size: 12px;
+}
+
+.filter-box input {
+    width: 180px;
+    height: 25px;
+    border: 1px solid #bbb;
+}
+
+/* TABLA */
+.table-container {
+    margin: 0 10px;
+    border: 1px solid #bbb;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #bbb;
+    padding: 4px 6px;
+    font-size: 12px;
+}
+
+thead {
+    background: #f1f1f1;
+}

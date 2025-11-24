@@ -1,37 +1,64 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Login MEDICIONES</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+const formLogin = document.getElementById('login-form');
+const mensajeLogin = document.getElementById('mensaje-login');
 
-    <!-- LOGO ARRIBA A LA DERECHA -->
-    <img src="imagenes/logo.png" class="logo-app" alt="Lartec">
+formLogin.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    <div class="panel panel-login">
-        <h1>Acceso MEDICIONES</h1>
+    const usuario = document.getElementById('usuario').value;
+    const password = document.getElementById('password').value;
 
-        <form id="login-form">
-            <input
-                type="text"
-                id="usuario"
-                placeholder="Usuario"
-                required
-            >
-            <input
-                type="password"
-                id="password"
-                placeholder="Contraseña"
-                required
-            >
-            <button type="submit" class="btn-mostaza">Entrar</button>
-        </form>
+    try {
+        const res = await fetch('/api/usuarios/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ usuario, password })
+        });
 
-        <p id="mensaje-login"></p>
-    </div>
+        const data = await res.json();
 
-    <script src="login.js"></script>
-</body>
-</html>
+        if (!res.ok || !data.ok) {
+            mensajeLogin.textContent = data.error || 'Error de acceso';
+            mensajeLogin.style.color = 'red';
+            return;
+        }
+
+        // Guardamos usuario y rol
+        localStorage.setItem('usuario', data.usuario);
+        localStorage.setItem('rol', data.rol);
+
+        // Seleccionar destino según el rol
+        let destino = '';
+
+        switch (data.rol) {
+            case 'ADMIN':
+                destino = 'index.html';  // o admin/escritorio.html si lo haces
+                break;
+
+            case 'DIRECCION':
+                destino = 'DIRECCION/escritorio.html';
+                break;
+
+            case 'RECEPCION':
+                destino = 'RECEPCION/escritorio.html';
+                break;
+
+            case 'TECNICO':
+                destino = 'TECNICO/escritorio.html';
+                break;
+
+            case 'COMERCIAL':
+                destino = 'COMERCIAL/escritorio.html';
+                break;
+
+            default:
+                destino = 'index.html';
+        }
+
+        window.location.href = destino;
+
+    } catch (error) {
+        console.error(error);
+        mensajeLogin.textContent = 'Error de servidor';
+        mensajeLogin.style.color = 'red';
+    }
+});
