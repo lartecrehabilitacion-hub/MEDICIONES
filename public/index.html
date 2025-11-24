@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mediciones App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Mediciones</h1>
+
+    <section id="form-section">
+        <h2>Agregar Medición</h2>
+        <form id="medicion-form">
+            <input type="text" id="cliente" placeholder="Cliente" required>
+            <input type="text" id="direccion" placeholder="Dirección" required>
+            <input type="number" id="valor" placeholder="Valor" required>
+            <button type="submit">Guardar</button>
+        </form>
+    </section>
+
+    <section id="lista-section">
+        <h2>Lista de Mediciones</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Dirección</th>
+                    <th>Valor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-mediciones">
+            </tbody>
+        </table>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>

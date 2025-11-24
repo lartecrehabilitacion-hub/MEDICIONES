@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f2f2f2;
+    padding: 0;
+}
+
+/* ===========================
+   2. CABECERA SUPERIOR
+   =========================== */
+.header {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    height: 55px;
+    margin-right: 20px;
+}
+
+/* ===========================
+   3. PANEL DE CONTENIDO
+   =========================== */
+.panel {
+    background: white;
+    width: 95%;
+    margin: 25px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+h1, h2 {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* ===========================
+   4. FORMULARIO
+   =========================== */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    font-size: 15px;
+}
+
+/* BOTÓN AZUL TIPO LARTEC */
+.btn-azul {
+    background: #004aad;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-azul:hover {
+    background: #003a8a;
+}
+
+/* ===========================
+   5. TABLA
+   =========================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+th {
+    background: #004aad;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    cursor: pointer;
+}
